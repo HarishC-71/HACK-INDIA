@@ -1,0 +1,23 @@
+
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v8.0.3 [32mbuilding client environment for production...[36m[39m
+[2Ktransforming...Found 1 warning while optimizing generated CSS:
+
+[2m│   }[22m
+[2m│ }[22m
+[2m│[22m @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+[2m┆[22m        [33m[2m^--[22m @import rules must precede all rules aside from @charset and @layer statements[39m
+[2m┆[22m
+[2m│ :root {[22m
+[2m│   --primary: #6366f1;[22m
+
+✓ 1785 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.99 kB │ gzip:   0.52 kB
+dist/assets/index-CSWjYWTz.css   63.10 kB │ gzip:  10.25 kB
+dist/assets/index-BELbqfyZ.js   363.36 kB │ gzip: 107.26 kB
+
+[32m✓ built in 474ms[39m

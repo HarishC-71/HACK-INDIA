@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* ------------------ THEME TOKENS ------------------ */
+:root {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --accent: #10b981;
+  --surface-dark: #020617;
+  --glass-bg: rgba(15, 23, 42, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ------------------ GLOBAL RESET ------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  background-color: var(--surface-dark);
+  color: #f8fafc;
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ------------------ TYPOGRAPHY ------------------ */
+h1, h2, h3, h4, .font-outfit {
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* ------------------ SCROLLBAR ------------------ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.2);
+}
+
+/* ------------------ LAYOUT ------------------ */
+.mesh-gradient {
+  background-color: #020617;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(230, 80%, 15%, 0.4) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(160, 80%, 15%, 0.2) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, hsla(260, 80%, 15%, 0.3) 0px, transparent 50%);
+  background-attachment: fixed;
+}
+
+/* ------------------ COMPONENTS ------------------ */
+@layer components {
+
+  /* Glass Card */
+  .glass-card {
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    @apply bg-slate-900/40 border border-white/5 rounded-[32px] shadow-2xl transition-all duration-700;
+  }
+
+  .glass-card:hover {
+    @apply border-indigo-500/30 bg-slate-900/50 shadow-indigo-500/5;
+  }
+
+  /* Premium Border */
+  .premium-border {
+    position: relative;
+    z-index: 1;
+  }
+
+  .premium-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 33px; /* Slightly larger than glass-card radius */
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent, rgba(99,102,241,0.3));
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    background: linear-gradient(135deg, #fff, #818cf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Buttons */
+  .glow-btn {
+    @apply bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-[22px] px-8 py-4 transition-all duration-500 shadow-xl shadow-indigo-600/20 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-widest text-xs;
+  }
+
+  .glow-btn:hover {
+    @apply shadow-2xl shadow-indigo-600/40 -translate-y-0.5;
+  }
+
+  /* Badges */
+  .badge-applied, .badge-pending {
+    @apply px-4 py-1.5 text-[10px] font-black rounded-full uppercase tracking-[0.15em] border border-blue-500/20 bg-blue-500/10 text-blue-400 shadow-sm;
+  }
+
+  .badge-shortlisted, .badge-open {
+    @apply px-4 py-1.5 text-[10px] font-black rounded-full uppercase tracking-[0.15em] border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 shadow-sm;
+  }
+
+  .badge-rejected, .badge-closed {
+    @apply px-4 py-1.5 text-[10px] font-black rounded-full uppercase tracking-[0.15em] border border-red-500/20 bg-red-500/10 text-red-400 shadow-sm;
+  }
+
+  /* Inputs */
+  .input-field {
+    @apply w-full bg-slate-900/60 border border-slate-800 rounded-2xl px-6 py-4 transition-all duration-300 text-slate-200 placeholder-slate-600 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none shadow-inner font-medium;
+  }
+
+  /* Sidebar */
+  .sidebar-glass {
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    @apply bg-slate-950/60 border-r border-white/5;
+  }
+
+  /* Stats */
+  .stat-card-value {
+    font-family: 'Outfit', sans-serif;
+    @apply drop-shadow-[0_0_15px_rgba(255,255,255,0.1)];
+  }
+
+  /* Table */
+  .data-table {
+    @apply w-full border-collapse text-left;
+  }
+
+  .data-table th {
+    @apply px-10 py-8 text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] border-b border-white/5;
+  }
+
+  .data-table td {
+    @apply px-10 py-10 border-b border-white/5 transition-all duration-300;
+  }
+
+  .data-table tr:last-child td {
+    @apply border-b-0;
+  }
+
+  .data-table tr:hover td {
+    @apply bg-white/5;
+  }
+
+  /* Spinner */
+  .spinner {
+    @apply w-6 h-6 border-2 border-white/10 border-t-white rounded-full animate-spin;
+  }
+
+  /* Toast */
+  .toast-enter {
+    animation: toastSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes toastSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+/* ------------------ ANIMATIONS ------------------ */
+@layer utilities {
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .animate-slide-right {
+    animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .ease-out-expo {
+    transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  }
+}
