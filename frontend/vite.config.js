@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/api': 'https://hack-india-1.onrender.com',
+      '/api': 'http://localhost:5000'
     }
   }
 }) // reload
