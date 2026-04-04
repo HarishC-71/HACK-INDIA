@@ -44,18 +44,18 @@ export default function LoginPage() {
         {/* Abstract Background Elements */}
         <div className="absolute top-[-15%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[140px] animate-pulse" />
         <div className="absolute bottom-[5%] right-[5%] w-[600px] h-[600px] bg-emerald-600/10 rounded-full blur-[160px]" />
-        
+
         <div className="relative z-10">
           <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-10 animate-fade-in shadow-xl shadow-indigo-500/5">
             <div className="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse" />
             <span className="text-xs font-bold uppercase tracking-[0.2em] text-indigo-200">Next-Gen Placement Intelligence</span>
           </div>
-          
+
           <h1 className="text-8xl font-black text-white mb-8 leading-[1.05] tracking-tight animate-fade-in">
             Bridge the Gap<br />
             <span className="gradient-text">Between Talent & Opportunity.</span>
           </h1>
-          
+
           <p className="text-2xl text-slate-400 mb-16 max-w-2xl leading-relaxed animate-fade-in font-medium" style={{ animationDelay: '0.1s' }}>
             Empowering students and recruiters with AI-driven insights, automated technical ranking, and a seamless placement ecosystem.
           </p>
@@ -79,7 +79,7 @@ export default function LoginPage() {
             ))}
           </div>
         </div>
-        
+
         {/* Floating Logo Branding */}
         <div className="absolute bottom-16 left-24 flex items-center gap-4 opacity-60 hover:opacity-100 transition-opacity duration-500">
           <div className="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center font-black text-white italic text-xl shadow-lg shadow-indigo-600/30">P</div>
@@ -120,11 +120,10 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setRole('student')}
-                  className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-[18px] text-xs font-black tracking-[0.15em] transition-all duration-300 ${
-                    role === 'student'
+                  className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-[18px] text-xs font-black tracking-[0.15em] transition-all duration-300 ${role === 'student'
                       ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/30 ring-1 ring-white/10'
                       : 'text-slate-500 hover:text-slate-300'
-                  }`}
+                    }`}
                 >
                   <GraduationCap className="w-4 h-4" />
                   STUDENT
@@ -132,11 +131,10 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setRole('recruiter')}
-                  className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-[18px] text-xs font-black tracking-[0.15em] transition-all duration-300 ${
-                    role === 'recruiter'
+                  className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-[18px] text-xs font-black tracking-[0.15em] transition-all duration-300 ${role === 'recruiter'
                       ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-600/30 ring-1 ring-white/10'
                       : 'text-slate-500 hover:text-slate-300'
-                  }`}
+                    }`}
                 >
                   <Building2 className="w-4 h-4" />
                   RECRUITER
@@ -152,7 +150,7 @@ export default function LoginPage() {
                     type="text"
                     required
                     value={form.name}
-                    onChange={e => setForm({...form, name: e.target.value})}
+                    onChange={e => setForm({ ...form, name: e.target.value })}
                     className="w-full px-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl text-white placeholder-slate-600 focus:border-indigo-500 text-base shadow-sm"
                     placeholder="Jane Cooper"
                   />
@@ -166,7 +164,7 @@ export default function LoginPage() {
                     type="text"
                     required
                     value={form.company}
-                    onChange={e => setForm({...form, company: e.target.value})}
+                    onChange={e => setForm({ ...form, company: e.target.value })}
                     className="w-full px-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl text-white placeholder-slate-600 focus:border-indigo-500 text-base shadow-sm"
                     placeholder="Enter company name"
                   />
@@ -179,7 +177,7 @@ export default function LoginPage() {
                   type="email"
                   required
                   value={form.email}
-                  onChange={e => setForm({...form, email: e.target.value})}
+                  onChange={e => setForm({ ...form, email: e.target.value })}
                   className="w-full px-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl text-white placeholder-slate-600 focus:border-indigo-500 text-base shadow-sm"
                   placeholder="name@company.com"
                 />
@@ -195,7 +193,7 @@ export default function LoginPage() {
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={form.password}
-                    onChange={e => setForm({...form, password: e.target.value})}
+                    onChange={e => setForm({ ...form, password: e.target.value })}
                     className="w-full px-6 py-5 bg-slate-900/50 border border-slate-800 rounded-2xl text-white placeholder-slate-600 focus:border-indigo-500 text-base pr-14 shadow-sm"
                     placeholder="••••••••"
                   />
@@ -221,7 +219,7 @@ export default function LoginPage() {
             <div className="mt-12 text-center pt-10 border-t border-slate-800/60 relative">
               <p className="text-xs text-slate-500 mb-8 font-black uppercase tracking-[0.25em]">Reviewer Quick Pass</p>
               <div className="flex gap-4">
-                <button onClick={() => demoLogin('rahul@student.com')}
+                <button onClick={() => demoLogin('student1@gmail.com')}
                   className="flex-1 flex flex-col items-center gap-2.5 p-5 rounded-[24px] bg-slate-900/50 border border-slate-800 hover:border-indigo-500/40 hover:bg-slate-900 transition-all group shadow-sm">
                   <div className="p-2.5 bg-slate-800 rounded-xl group-hover:bg-indigo-500/10 group-hover:scale-110 transition-all">
                     <GraduationCap className="w-5 h-5 text-slate-600 group-hover:text-indigo-400 transition-colors" />

@@ -80,7 +80,7 @@ export default function StudentDashboard() {
       const res = await updateProfile({ skills, githubLink, portfolioLink, resume, leetcodeStats: leetcode, experience });
       updateUser(res.data);
       showToast('Profile updated successfully!');
-    } catch { showToast('Failed to update profile', 'error'); }
+    } catch (err) { console.error('Save profile error:', err); showToast('Failed to update profile', 'error'); }
   };
 
   const handleAnalyze = async () => {
@@ -91,7 +91,7 @@ export default function StudentDashboard() {
       if (res.data.user) updateUser(res.data.user);
       showToast('AI analysis complete! Check your scores.');
       setActiveTab('scores');
-    } catch { showToast('Analysis failed', 'error'); }
+    } catch (err) { console.error('Analysis error:', err); showToast('Analysis failed — check console', 'error'); }
     setAnalyzing(false);
   };
 

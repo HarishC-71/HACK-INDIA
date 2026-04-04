@@ -48,8 +48,13 @@ const db = {
       leetcodeStats: { solved: 150, easy: 80, medium: 50, hard: 20 },
       resume: 'Experienced full-stack developer with 2 years of experience in React, Node.js, Python, and MongoDB. Built multiple projects including e-commerce platforms and real-time chat applications. Strong problem-solving skills with 150+ LeetCode problems solved.',
       portfolioLink: 'https://rahulsharma.dev',
-      experience: 2,   // years
-      scores: null,
+      experience: 2,
+      scores: {
+        resumeScore: 72, githubScore: 80, codingScore: 65, portfolioScore: 85, finalScore: 74,
+        matchedSkills: ['javascript', 'react', 'node.js', 'python', 'mongodb'],
+        missingSkills: ['docker', 'aws', 'typescript', 'sql'],
+        breakdown: { resumeWeight: '40% – Skills & experience depth', githubWeight: '30% – Code activity & presence', codingWeight: '20% – LeetCode problem-solving', portfolioWeight: '10% – Project showcase' }
+      },
       resumeAnalysis: null,
       createdAt: new Date().toISOString()
     },
@@ -61,7 +66,12 @@ const db = {
       resume: 'Data science enthusiast with expertise in Python, Machine Learning, TensorFlow, and SQL. Published research paper on NLP. Experience with data pipelines and model deployment using Docker and AWS.',
       portfolioLink: 'https://priyapatel.dev',
       experience: 1,
-      scores: null,
+      scores: {
+        resumeScore: 68, githubScore: 77, codingScore: 80, portfolioScore: 85, finalScore: 75,
+        matchedSkills: ['python', 'machine learning', 'tensorflow', 'sql', 'docker', 'aws'],
+        missingSkills: ['javascript', 'react', 'node.js', 'typescript'],
+        breakdown: { resumeWeight: '40% – Skills & experience depth', githubWeight: '30% – Code activity & presence', codingWeight: '20% – LeetCode problem-solving', portfolioWeight: '10% – Project showcase' }
+      },
       resumeAnalysis: null,
       createdAt: new Date().toISOString()
     },
@@ -232,6 +242,12 @@ const authMiddleware = (req, res, next) => {
 };
 
 // ─────────────────────────────────────────────────────────────
+//  HEALTH CHECK
+// ─────────────────────────────────────────────────────────────
+app.get('/health', (req, res) => res.json({ status: 'healthy', timestamp: new Date().toISOString() }));
+app.get('/api/health', (req, res) => res.json({ status: 'healthy', timestamp: new Date().toISOString() }));
+
+// ─────────────────────────────────────────────────────────────
 //  AUTH ROUTES
 // ─────────────────────────────────────────────────────────────
 app.post('/api/auth/signup', (req, res) => {
@@ -381,7 +397,7 @@ app.post('/api/jobs', authMiddleware, (req, res) => {
     experienceLevel: experienceLevel || '0-1',   // "0-1" | "1-3" | "3+"
     salary:          salary          || 'Not disclosed',
     location:        location        || 'Not specified',
-    vacancyLimit:    vacancyLimit    || 10,
+    vacancyLimit:    Math.max(1, Math.min(1000, parseInt(vacancyLimit) || 10)),
     applicationsCount: 0,
     status: 'open',
     createdAt: new Date().toISOString()
@@ -451,8 +467,8 @@ app.get('/api/jobs/:id/matches', authMiddleware, (req, res) => {
 //  RECRUITER CANDIDATE SEARCH / FILTER
 // ─────────────────────────────────────────────────────────────
 /**
- * GET /api/recruiter/candidates?minScore=&maxScore=&experience=&skills=&minMatch=
- * Returns all students with optional filters.
+ * GET /api/recruiter/candidates?minScore=&maxScore=&experience=&skills=
+ * Returns all students with optional filters, sorted by AI score descending.
  */
 app.get('/api/recruiter/candidates', authMiddleware, (req, res) => {
   if (req.user.role !== 'recruiter') return res.status(403).json({ error: 'Access denied' });
@@ -460,9 +476,8 @@ app.get('/api/recruiter/candidates', authMiddleware, (req, res) => {
   const {
     minScore   = 0,
     maxScore   = 100,
-    experience,          // "0-1" | "1-3" | "3+"
-    skills,              // comma-separated
-    minMatch   = 0,
+    experience,   // "0-1" | "1-3" | "3+"
+    skills,       // comma-separated
   } = req.query;
 
   const skillFilter = skills ? skills.split(',').map(s => s.trim().toLowerCase()).filter(Boolean) : [];

@@ -80,7 +80,7 @@ export default function RecruiterDashboard() {
       setShowJobForm(false);
       setJobForm({ role: '', description: '', requiredSkills: '', experienceLevel: '0-1', salary: '', location: '', vacancyLimit: 5 });
       loadData();
-    } catch { showToast('Failed to post job', 'error'); }
+    } catch (err) { console.error('Post job error:', err); showToast('Failed to post job', 'error'); }
   };
 
   const handleDeleteJob = async (jobId) => {
@@ -89,7 +89,7 @@ export default function RecruiterDashboard() {
       showToast('Job deleted');
       loadData();
       if (selectedJob?.id === jobId) { setSelectedJob(null); setApplicants([]); }
-    } catch { showToast('Failed to delete job', 'error'); }
+    } catch (err) { console.error('Delete job error:', err); showToast('Failed to delete job', 'error'); }
   };
 
   const viewApplicants = async (job) => {
@@ -102,7 +102,7 @@ export default function RecruiterDashboard() {
       ]);
       setApplicants(appsRes.data);
       setMatches(matchesRes.data);
-    } catch { showToast('Failed to load applicants', 'error'); }
+    } catch (err) { console.error('Load applicants error:', err); showToast('Failed to load applicants', 'error'); }
     setLoadingApplicants(false);
   };
 
@@ -115,7 +115,7 @@ export default function RecruiterDashboard() {
         setApplicants(res.data);
       }
       loadData();
-    } catch { showToast('Failed to update status', 'error'); }
+    } catch (err) { console.error('Update status error:', err); showToast('Failed to update status', 'error'); }
   };
 
   const handleAssign = async (studentId) => {
@@ -142,7 +142,7 @@ export default function RecruiterDashboard() {
         skills:     filters.skills     || undefined,
       });
       setCandidates(res.data);
-    } catch { showToast('Failed to load candidates', 'error'); }
+    } catch (err) { console.error('Load candidates error:', err); showToast('Failed to load candidates', 'error'); }
     setLoadingCandidates(false);
   };
 
